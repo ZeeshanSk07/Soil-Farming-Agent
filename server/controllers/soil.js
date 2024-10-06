@@ -1,9 +1,11 @@
 const Soil = require("../model/soil");
 
+// POST: Add new soil entry
 function postSoil() {
   return async (req, res, next) => {
     try {
-      const { name, color, characteristics, suitable_crops } = req.body;
+      console.log('Request received', req.body);
+      const { name, color, characteristics, suitable_crops, distributor } = req.body;
 
       const newSoil = new Soil({
         name,
@@ -11,76 +13,104 @@ function postSoil() {
         characteristics,
         suitable_crops,
       });
+
       await newSoil.save();
 
-      res
-        .status(201)
-        .json({ message: "Soil added successfully", soil: newSoil });
+      res.status(201).json({
+        message: "Soil added successfully",
+        soil: newSoil
+      });
     } catch (error) {
-      next("Error posting soil details", error);
+      console.log("Error posting soil details", error);
+      next(error); 
     }
   };
 }
 
-function getsoil_details(){
-    return async (req,res,next)=>{
-        try{
-            const soil = await Soil.findById(req.params.id);
-            if(!soil){
-                return res.status(404).json({message: "Soil not found"});
-            }
-            res.json(soil);
-        }catch(error){
-            next("Error getting soil details", error);
-        }
+// GET: Get details of a specific soil entry
+function getsoil_details() {
+  return async (req, res, next) => {
+    try {
+      const soil = await Soil.findById(req.params.id);
+      if (!soil) {
+        return res.status(404).json({ message: "Soil not found" });
+      }
+      res.json(soil);
+    } catch (error) {
+      console.log("Error getting soil details", error);
+      next(error);
     }
+  };
 }
 
-function getallDetails (){
-    return async (req,res,next)=>{
-        try{
-            const soils = await Soil.find();
-            res.json(soils);
-        }catch(error){
-            next("Error getting all soil details", error);
-        }
+// GET: Get all soil entries
+function getallDetails() {
+  return async (req, res, next) => {
+    try {
+      const soils = await Soil.find();
+      res.json(soils);
+    } catch (error) {
+      console.log("Error getting all soil details", error);
+      next(error);
     }
+  };
 }
 
-function updatesoilDetails(){
-    return async (req,res,next)=>{
-        try{
-            const {name, color, characteristics, suitable_crops} = req.body;
-            const id = req.params.id;
+// PUT: Update soil details
+function updatesoilDetails() {
+  return async (req, res, next) => {
+    try {
+      const { name, color, characteristics, suitable_crops, distributor } = req.body;
+      const id = req.params.id;
 
-            const soil = await Soil.findByIdAndUpdate(id,{name, color, characteristics, suitable_crops})
-            await soil.save();
-            if(!soil){
-                return res.status(404).json({message: "Soil not found"});
-            }
-            return res.json({
-                message: "Soil updated successfully",
-                soil: soil
-            })
-        }catch(error){
-            next("Error updating soil details", error);
-        }
+      const soil = await Soil.findByIdAndUpdate(id, {
+        name,
+        color,
+        characteristics,
+        suitable_crops
+      }, { new: true });
+
+      if (!soil) {
+        return res.status(404).json({ message: "Soil not found" });
+      }
+
+      return res.json({
+        message: "Soil updated successfully",
+        soil: soil
+      });
+    } catch (error) {
+      console.log("Error updating soil details", error);
+      next(error);
     }
+  };
 }
 
-function deleteDetails(){
-    return async (req,res,next)=>{
-        try{
-            const id = req.params.id;
-            const soil = await Soil.findByIdAndDelete(id);
-            if(!soil){
-                return res.status(404).json({message: "Soil not found"});
-            }
-            res.json({message: "Soil deleted successfully", soil})
-        }catch(error){
-            next("Error deleting soil details", error);
-        }
+// DELETE: Remove a soil entry
+function deleteDetails() {
+  return async (req, res, next) => {
+    try {
+      const id = req.params.id;
+      const soil = await Soil.findByIdAndDelete(id);
+
+      if (!soil) {
+        return res.status(404).json({ message: "Soil not found" });
+      }
+
+      res.json({
+        message: "Soil deleted successfully",
+        soil
+      });
+    } catch (error) {
+      console.log("Error deleting soil details", error);
+      next(error);
     }
+  };
 }
 
-module.exports = {postSoil, getsoil_details, getallDetails, updatesoilDetails, deleteDetails}
+module.exports = {
+  postSoil,
+  getsoil_details,
+  getallDetails,
+  updatesoilDetails,
+  deleteDetails
+};

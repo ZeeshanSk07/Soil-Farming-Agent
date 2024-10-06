@@ -14,10 +14,13 @@ const soilschema = new mongoose.Schema({
         required: true
     },
     suitable_crops:{
-        type: Object,
+        type: Array,
+        required: true
+    },
+    distributor:{
+        type: String,
         required: true
     }
-
 });
 
 module.exports = mongoose.model('Soil', soilschema);

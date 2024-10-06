@@ -15,10 +15,11 @@ app.use("/soil", soilRoute);
 mongoose.connect(process.env.MONGO_URL)
 .then(() => {
   console.log("MongoDB connected...");
-  app.listen(port, () => {
-    console.log("Server is running on port " + port);
-  });
 })
 .catch((err) => {
   console.error("Error connecting to database", err);
+});
+
+app.listen(port, () => {
+  console.log("Server is running on port " + port);
 });
