@@ -12,6 +12,7 @@ function postSoil() {
         color,
         characteristics,
         suitable_crops,
+        distributor
       });
 
       await newSoil.save();
@@ -67,7 +68,8 @@ function updatesoilDetails() {
         name,
         color,
         characteristics,
-        suitable_crops
+        suitable_crops,
+        distributor
       }, { new: true });
 
       if (!soil) {
