@@ -1,0 +1,54 @@
+.navbar {
+    top: 0;
+    position: sticky;
+    overflow-x: hidden;
+    padding: 0;
+    margin: 0;
+    z-index: 10;
+}
+
+nav {
+    width: 100vw;
+    height: 16vh;
+    background-color: #007BFF;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+nav ul {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 1.3vh 3vw 1vh 8vw;
+    margin: 0;
+}
+
+nav ul p img{
+    height: 4rem;
+    width: auto;
+    border-radius: 50%;
+}
+
+button{
+    background-color: #007BFF;
+    color: white;
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    height: auto;
+    border: none;
+    border-radius: 8px;
+    margin: 1.5rem 3rem 1rem 0;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    float: right;
+    padding: 1.2vh 1vw;
+    font-size: 1.1rem;
+    top: 0;
+    position: sticky;
+}
+
+button p{
+    padding: 0;
+    margin: 0 0.2rem 0 0.7rem;
+    font-weight: 600;
+}

@@ -1,0 +1,94 @@
+/* Container for the register form */
+.register-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f5f5f5;
+  }
+  
+  /* Title of the form */
+  .form-title {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #333;
+  }
+  
+  /* Style for the form */
+  .register-form {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    animation: fadeInForm 0.5s ease-in-out; /* Apply the fade-in animation to form */
+  }
+  
+  /* Label styling */
+  .form-label {
+    display: block;
+    margin-bottom: 1rem;
+    color: #555;
+    font-weight: bold;
+  }
+  
+  /* Input field styling */
+  .form-input {
+    width: 100%;
+    padding: 0.75rem;
+    margin-top: 0.25rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    box-sizing: border-box;
+  }
+  
+  /* Button styling */
+  .form-button {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #28a745;
+    color: white;
+    font-size: 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 1rem;
+  }
+  
+  /* Button hover effect */
+  .form-button:hover {
+    background-color: #218838;
+  }
+  
+  /* Form footer styling */
+  .form-footer {
+    text-align: center;
+    margin-top: 1.5rem;
+  }
+  
+  /* Link styling */
+  .form-link {
+    color: #28a745;
+    text-decoration: none;
+  }
+  
+  /* Link hover effect */
+  .form-link:hover {
+    text-decoration: underline;
+  }
+  
+  /* Fade-in animation for form */
+  @keyframes fadeInForm {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  

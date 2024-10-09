@@ -1,0 +1,91 @@
+.dashboard{
+    width: 100vw;
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+    overflow-x: hidden;
+}
+body{
+    width: 100vw;
+    height: auto;
+    padding: 0;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+.content{
+    margin: auto;
+}
+
+.table {
+    display: flex;
+    flex-direction: row;
+    width: 30vw;
+    height: 10vh;
+    justify-content: space-between;
+    border-radius: 16px;
+    background-color: #FFFFFF;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    margin: auto auto 1rem 30vw;
+    padding: 2vh 2vw;
+    transform: translateX(70%);
+    animation: right 0.5s ease-in-out forwards;
+  }
+  .table.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  
+  
+  @keyframes right {
+    0% {
+      transform: translateX(70%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  
+
+.table:hover{
+    background-color: #007BFF;
+    color: white;
+}
+
+.title{
+    font-size: 2rem;
+    font-weight: 600;
+    margin-top: 0.3rem;
+    width: 12vw;
+    text-overflow:clip;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.color{
+    margin-top: 0.3rem;
+    margin-left: 0.25rem;
+    font-size: 1.05rem;
+    letter-spacing: 2px;
+    color: rgb(67, 66, 66);
+}
+
+
+.distributor span{
+    margin-right: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+.col{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.distributor{
+    font-size: 1rem;
+    letter-spacing: 1px;
+    color: rgb(67, 66, 66);
+    width: 9.5vw;
+}
