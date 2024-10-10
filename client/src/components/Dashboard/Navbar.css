@@ -12,6 +12,17 @@ nav {
     height: 16vh;
     background-color: #007BFF;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+
+nav h1{
+    font-size: 2rem;
+    color:#ffffff;
+    text-transform: capitalize;
+    margin-left: 11rem;
 }
 
 nav ul {
@@ -51,4 +62,68 @@ button p{
     padding: 0;
     margin: 0 0.2rem 0 0.7rem;
     font-weight: 600;
+}
+
+.form-container{
+    position: fixed;
+    top: 50%; /* Start vertically in the middle */
+    left: 50%; /* Start horizontally in the middle */
+    transform: translate(-50%, -50%); /* Center it */
+    z-index: 1000;
+    padding: 0.5rem 1.5rem;
+    max-width: fit-content;
+    height: auto;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    animation: fade 0.5s;
+}
+@keyframes fade {
+    from {
+        opacity: 0; /* Start fully transparent */
+        transform: translate(-50%, -50%) scale(0.95); /* Slightly smaller */
+    }
+    to {
+        opacity: 1; /* Fully opaque */
+        transform: translate(-50%, -50%) scale(1); /* Scale to normal size */
+    }
+}
+
+.form-container label{
+    display: block;
+    margin-top: 1rem;
+    color: #555;
+    font-weight: bold;
+    font-size: 1.3rem;
+    width: fit-content;
+}
+
+.form-container form{
+    overflow-y: scroll;
+    scrollbar-width: none;
+    max-height: 45vh;
+}
+
+.form-container h1{
+    text-align: center;
+    color: #007BFF;
+    font-weight: 900;
+    
+}
+.addsoil{
+    text-align: center;
+    margin: 2rem auto 1rem auto;
+    float: none;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+.charbtn{
+    width: fit-content;
+    height: 4.5vh;
+    margin: 0 auto 0 0.5rem;
+}
+.form-container input{
+    padding: 0.4rem;
+    border-radius: 6px;
+    margin-left: 0.5rem;
 }

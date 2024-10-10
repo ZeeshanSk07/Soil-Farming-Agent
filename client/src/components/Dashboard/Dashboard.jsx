@@ -58,7 +58,7 @@ function Dashboard() {
       (entries) => {
         entries.forEach((entry, index) => {
           if (entry.isIntersecting) {
-            entry.target.style.animationDelay = `${index * 0.3}s`; // Stagger animation by index
+            entry.target.style.animationDelay = `${index * 0.5}s`;
             entry.target.classList.add("visible");
             observer.unobserve(entry.target);
           }
@@ -101,7 +101,7 @@ function Dashboard() {
                   <div>{i.location}</div>
                 </div>
 
-                <div>
+                <div className="edit">
                   <span><RiEdit2Fill/></span>
                   <span><MdDelete /></span>
                 </div>

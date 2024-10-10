@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./Register.css";
 import { register, login } from "../apis/user";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import {useNavigate} from 'react-router-dom';
 
 function Register() {

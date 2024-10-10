@@ -89,3 +89,11 @@ body{
     color: rgb(67, 66, 66);
     width: 9.5vw;
 }
+
+.edit{
+  display: flex;
+  width: 4vw;
+  justify-content: space-between;
+  font-size: 1.3rem;
+  align-items: center;
+}

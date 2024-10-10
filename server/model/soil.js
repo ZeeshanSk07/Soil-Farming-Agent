@@ -10,7 +10,7 @@ const soilschema = new mongoose.Schema({
         required: true
     },
     characteristics:{
-        type: Object,
+        type: Array,
         required: true
     },
     suitable_crops:{

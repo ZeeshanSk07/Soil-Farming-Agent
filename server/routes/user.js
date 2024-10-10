@@ -8,5 +8,4 @@ router.post('/signup', signup());
 router.put('/update/:id', Updateuser());
 router.post('/admin', adminlogin());
 
-
 module.exports = router;
