@@ -15,6 +15,13 @@
     color: #333;
   }
   
+  .error{
+    color: red;
+    margin-bottom: 0.5rem;
+    margin-top: 0;
+    font-size: 0.9rem;
+    font-weight: bold;
+  }
   /* Style for the form */
   .register-form {
     background-color: #ffffff;
@@ -22,14 +29,14 @@
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     width: 100%;
-    max-width: 400px;
+    max-width: 18rem;
     animation: fadeInForm 0.5s ease-in-out; /* Apply the fade-in animation to form */
   }
   
   /* Label styling */
   .form-label {
     display: block;
-    margin-bottom: 1rem;
+    margin-top: 1rem;
     color: #555;
     font-weight: bold;
   }

@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const UserSchema = new mongoose.Schema({
     name:{
         type: String,
-        required: (true,'Username required')
+        required: (true,'Name required')
     },
     email:{
         type: String,
@@ -15,4 +15,4 @@ const UserSchema = new mongoose.Schema({
         required: (true,'Password required')
     }
 })
-module.exports = mongoose.model('User', UserSchema);
+module.exports = mongoose.model('Public', UserSchema);
