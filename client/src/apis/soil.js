@@ -6,7 +6,7 @@ const postSoil = async (name, color, characteristics, suitable_crops, distributo
     try{
         const response = await axios.post(`${Backend_url}/postsoil`, {name, color, characteristics, suitable_crops, distributor},{
             headers: {
-                Authorization: `Bearer ${token}` // Include the authorization token
+                Authorization: `Bearer ${token}`
             }
         });
         console.log(response);
@@ -16,4 +16,20 @@ const postSoil = async (name, color, characteristics, suitable_crops, distributo
         return error;
     }
 }
-export {postSoil}
+
+const getSoils = async (tok)=>{
+    try{
+        const response = await axios.get(`${Backend_url}/getall`, {
+            headers: {
+                Authorization: `Bearer ${tok}`
+            }
+        });
+        console.log(response);
+        return response;
+    }catch(error){
+        console.log(error);
+        return error;
+    }
+}
+
+export {postSoil, getSoils};

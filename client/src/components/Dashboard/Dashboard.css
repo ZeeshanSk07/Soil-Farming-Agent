@@ -30,8 +30,9 @@ body{
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     margin: auto auto 1rem 30vw;
     padding: 2vh 2vw;
-    transform: translateX(70%);
-    animation: right 0.5s ease-in-out forwards;
+    transform: scale(1);
+    animation: right 0.5s ease-in-out;
+    z-index: -100;
   }
   .table.visible {
     opacity: 1;
@@ -41,11 +42,11 @@ body{
   
   @keyframes right {
     0% {
-      transform: translateX(70%);
+      transform: scale(0.8);
       opacity: 0;
     }
     100% {
-      transform: translateX(0);
+      transform: scale(1);
       opacity: 1;
     }
   }
@@ -54,6 +55,8 @@ body{
 .table:hover{
     background-color: #007BFF;
     color: white;
+    transform: scale(1.1);
+    transition: transform 0.3s ease; 
 }
 
 .title{
@@ -66,12 +69,11 @@ body{
     white-space: nowrap;
 }
 
-.color{
+.table .color{
     margin-top: 0.3rem;
     margin-left: 0.25rem;
     font-size: 1.05rem;
     letter-spacing: 2px;
-    color: rgb(67, 66, 66);
 }
 
 
@@ -88,7 +90,6 @@ body{
 .distributor{
     font-size: 1rem;
     letter-spacing: 1px;
-    color: rgb(67, 66, 66);
     width: 9.5vw;
 }
 

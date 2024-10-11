@@ -1,9 +1,10 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./Dashboard.css";
 import { FaChevronCircleRight } from "react-icons/fa";
 import { FaDotCircle } from "react-icons/fa";
 import { RiEdit2Fill } from "react-icons/ri";
 import { MdDelete } from "react-icons/md";
+import {getSoils} from '../../apis/soil';
 
 function Dashboard() {
   const arr = [
@@ -51,45 +52,41 @@ function Dashboard() {
     },
   ];
 
-  const cardRefs = useRef([]);
+  const [token, setToken] = useState('');
+  const [soils, setSoils] = useState([]);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry, index) => {
-          if (entry.isIntersecting) {
-            entry.target.style.animationDelay = `${index * 0.5}s`;
-            entry.target.classList.add("visible");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    cardRefs.current.forEach((card) => {
-      if (card) observer.observe(card);
-    });
-
-    return () => {
-      cardRefs.current.forEach((card) => {
-        if (card) observer.unobserve(card);
-      });
+    const fetchSoils = async () => {
+      const tok = localStorage.getItem('token');
+      setToken(tok);
+      try {
+        const allsoil = await getSoils(tok);  
+        console.log(allsoil.data); 
+        if(allsoil.status === 200){
+          setSoils(allsoil.data);
+          console.log('Soils fetched successfully:', soils);
+        }else {
+          console.log('Error fetching soils:', allsoil.data.message);
+        }
+      } catch (error) {
+        console.log('Error fetching soils:', error);
+      }
     };
-  }, []);
-
+  
+    fetchSoils();
+  }, [soils])
+  
   return (
     <div className="dashboard">
       <div className="content">
-        {arr.map((i, index) => {
+        {(soils || []).map((i, index) => {
           return (
             <div
               key={index}
               className="table"
-              ref={(el) => (cardRefs.current[index] = el)}
             >
               <div className="col">
-                <div className="title"><FaChevronCircleRight size={20} /><span> {i.soil}</span></div>
+                <div className="title"><FaChevronCircleRight size={20} /><span> {i.name}</span></div>
                 <div className="color">{i.color} color</div>
               </div>
 
