@@ -4,9 +4,9 @@ const {verifyToken} = require('../middlewares/verifyToken');
 const router = express.Router();
 
 router.get('/getall',verifyToken, getallDetails());
-router.get('/getsoil/:id', getsoil_details());
+router.get('/getsoil/:id',verifyToken, getsoil_details());
 router.post('/postsoil',verifyToken, postSoil());
-router.put('/updatesoil/:id', updatesoilDetails());
-router.delete('/deletesoil/:id', deleteDetails());
+router.put('/updatesoil/:id',verifyToken, updatesoilDetails());
+router.delete('/deletesoil/:id',verifyToken, deleteDetails());
 
 module.exports = router;

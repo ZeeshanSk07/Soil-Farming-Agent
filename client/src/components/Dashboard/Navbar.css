@@ -22,6 +22,17 @@ nav h1{
     color:#ffffff;
     text-transform: capitalize;
     margin-left: 11rem;
+    transform: scale(1);
+    animation: head 0.3s ease;
+}
+
+@keyframes head {
+    0% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(1);
+    }
 }
 
 nav ul {
@@ -62,6 +73,7 @@ button{
     top: 0;
     position: sticky;
     z-index: 100;
+    cursor: pointer;
 }
 
 button p{
@@ -81,7 +93,7 @@ button p{
     height: auto;
     background-color: #ffffff;
     border-radius: 10px;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
     animation: fade 0.5s;
 }
 @keyframes fade {
@@ -107,7 +119,7 @@ button p{
 .form-container form{
     overflow-y: scroll;
     scrollbar-width: none;
-    max-height: 45vh;
+    max-height: 50vh;
 }
 
 .form-container h1{
@@ -118,7 +130,7 @@ button p{
 }
 .addsoil{
     text-align: center;
-    margin: 2rem auto 1rem auto;
+    margin: 2rem auto 2rem auto;
     float: none;
     font-size: 1.2rem;
     font-weight: 700;

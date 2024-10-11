@@ -24,6 +24,20 @@ const getSoils = async (tok)=>{
                 Authorization: `Bearer ${tok}`
             }
         });
+        return response;
+    }catch(error){
+        console.log(error);
+        return error;
+    }
+}
+
+const DeleteSoil = async(id, token) =>{
+    try{
+        const response = await axios.delete(`${Backend_url}/deletesoil/${id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
         console.log(response);
         return response;
     }catch(error){
@@ -32,4 +46,4 @@ const getSoils = async (tok)=>{
     }
 }
 
-export {postSoil, getSoils};
+export {postSoil, getSoils, DeleteSoil};

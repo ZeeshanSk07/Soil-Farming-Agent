@@ -3,7 +3,8 @@ import avatar from "../../assets/avatar.png";
 import "./Navbar.css";
 import { FaPlus } from "react-icons/fa";
 import { postSoil } from "../../apis/soil";
-import toast from 'react-hot-toast'
+import toast from 'react-hot-toast';
+import { ImCancelCircle } from "react-icons/im";
 
 function Navbar() {
   const [open, setOpen] = useState(false);
@@ -44,6 +45,11 @@ function Navbar() {
       setOpen(true);
     }else{
       setOpen(false);
+      setName('');
+      setColor('');
+      setCharacteristics([]);
+      setDistributor('');
+      setSuitable_crops([]);
     }
   };
 
@@ -88,6 +94,7 @@ function Navbar() {
 
       {open && (
         <div className="form-container">
+          <div style={{display:"flex",float: "right", marginRight:'-0.5rem', cursor:'pointer'}}><ImCancelCircle onClick={Addsoil} size={21} /></div>
           <h1>New Distributor</h1>
           <form>
             <label>
