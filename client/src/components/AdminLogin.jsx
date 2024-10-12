@@ -24,7 +24,8 @@ function AdminLogin() {
         console.log(response);
         if (response.status === 200) {
           console.log("Admin login successful.");
-          toast.success('Admin login successful')
+          toast.success('Admin login successful');
+          localStorage.setItem('userid', response.data.id);
           navigate('/admin');
         } else {
           setErrors({...errors, message: 'Invalid credentials' });

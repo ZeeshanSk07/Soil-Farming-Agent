@@ -151,9 +151,40 @@ function adminlogin() {
     };
 }
 
+function updateAdmin(){
+    return async (req, res) => {
+        try {
+            const userId = req.params.id;
+            
+            const { updusername, newpassword } = req.body;
+            if (!updusername ||!newpassword) {
+                return res.status(400).json({ message: 'Please provide all required fields' });
+            }
+            
+            const adminone = await Admin.findById(userId);
+            if (!adminone) {
+                return res.status(404).json({ message: 'Admin not found' });
+            }
+            
+            adminone.username = updusername;
+            adminone.password = await bcrypt.hash(newpassword, 10);
+            
+            await adminone.save();
+            
+            res.json({
+                message: 'Admin updated successfully',
+                admin: adminone
+            });
+        }catch (e) {
+            console.log(e);
+            res.status(500).json({ message: 'Server Error', error: e.message });
+        }
+}}
+
 module.exports = {
     signup,
     login,
     Updateuser,
-    adminlogin
+    adminlogin,
+    updateAdmin
 };

@@ -63,6 +63,7 @@ function updatesoilDetails() {
     try {
       const { name, color, characteristics, suitable_crops, distributor } = req.body;
       const id = req.params.id;
+      console.log(id, req.body);
 
       const soil = await Soil.findByIdAndUpdate(id, {
         name,
