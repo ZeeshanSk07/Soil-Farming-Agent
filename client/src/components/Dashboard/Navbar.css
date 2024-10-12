@@ -21,6 +21,7 @@ nav h1{
     font-size: 2.5rem;
     color:#ffffff;
     text-transform: capitalize;
+    letter-spacing: 1px;
     margin-left: 11rem;
     transform: scale(1);
     animation: head 0.3s ease;
@@ -48,6 +49,13 @@ nav ul p img{
     height: 4rem;
     width: auto;
     border-radius: 50%;
+}
+
+nav ul p{
+    align-items: center;
+    display: flex;
+    color: #ffffff;
+    cursor: pointer;
 }
 
 .new_distribuutor{
@@ -81,12 +89,72 @@ button p{
     margin: 0 0.2rem 0 0.7rem;
     font-weight: 600;
 }
+.avatar-modal {
+    position: fixed !important;
+    right: 0;
+    top: 0; 
+    z-index: 10000;
+    padding: 0.3rem 5rem 0.5rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    width: fit-content; 
+    height: 100vh; 
+    background-color: #ffffff;
+    border-radius: 8px 0 0 8px; 
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    transform: translateX(0%); 
+    animation: leftside 0.45s linear;
+    font-size: 1.5rem;
+}
+.avatar-modal.slide-out {
+    animation: slideOut 0.4s forwards; 
+}
+@keyframes slideOut {
+    from {
+        transform: translateX(0); 
+    }
+    to {
+        transform: translateX(100%); 
+    }
+}
 
+@keyframes leftside {
+    from{
+        
+        transform: translateX(100%)
+    }
+    to{
+        
+        transform: translateX(0);
+    }
+}
+.avatar-modal p span {
+    margin-left: 0.8rem;
+    padding-bottom: 0.3rem;
+    align-items: center;
+    text-transform: capitalize;
+    white-space: nowrap;
+}
+
+.avatar-modal p {
+    display: flex;
+    margin-top: 0.6rem;
+    margin-bottom: 0.8rem;
+    cursor: pointer;
+}
+.avatar-modal p:first-child{
+    margin: 2rem 0 2.5rem 0;
+    padding: 0;
+    display: flex;
+    max-width: fit-content;
+    align-items: end;
+    cursor: pointer;
+}
 .form-container{
     position: fixed;
-    top: 50%; /* Start vertically in the middle */
-    left: 50%; /* Start horizontally in the middle */
-    transform: translate(-50%, -50%); /* Center it */
+    top: 50%;
+    left: 50%; 
+    transform: translate(-50%, -50%); 
     z-index: 1000;
     padding: 0.5rem 1.5rem;
     max-width: fit-content;
@@ -98,12 +166,12 @@ button p{
 }
 @keyframes fade {
     from {
-        opacity: 0; /* Start fully transparent */
-        transform: translate(-50%, -50%) scale(0.95); /* Slightly smaller */
+        opacity: 0; 
+        transform: translate(-50%, -50%) scale(0.95); 
     }
     to {
-        opacity: 1; /* Fully opaque */
-        transform: translate(-50%, -50%) scale(1); /* Scale to normal size */
+        opacity: 1; 
+        transform: translate(-50%, -50%) scale(1); 
     }
 }
 

@@ -48,7 +48,7 @@ body {
   }
 }
 
-.active {
+.active1 {
   background-color: #007bff;
   color: white;
   transform: scale(1.1);
@@ -79,6 +79,7 @@ body {
   text-overflow: clip;
   overflow: hidden;
   white-space: nowrap;
+  text-transform: capitalize;
 }
 
 .table .color {
@@ -97,11 +98,13 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  text-transform: lowercase;
 }
 .distributor {
   font-size: 1rem;
   letter-spacing: 1px;
   width: 9.5vw;
+  text-transform: capitalize;
 }
 
 .edit {
