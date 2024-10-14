@@ -1,14 +1,35 @@
 import React, { useState } from "react";
-import './PublicLogin.css'; // Import the CSS file
+import './PublicLogin.css';
+import { login } from '../apis/user';
+import toast from 'react-hot-toast';
+import { useNavigate } from "react-router-dom";
 
 function PublicLogin() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const navigate = useNavigate();
+
+  const publiclog = async(e) => {
+    e.preventDefault();
+    try{
+      const response = await login(email, password);
+      if(response.status === 200){
+        toast.success('Login successful');
+        navigate('/dashboard');
+      } else {
+        toast.error('Invalid credentials');
+      }
+    }catch(e){
+      console.log(e);
+      toast.error('An error occurred while logging in');
+    }
+  }
+
   return (
     <>
       <div className="login-container">
-        <form className="login-form">
+        <form onSubmit={(e)=>publiclog(e)} className="login-form">
           <h2 className="form-title">Login</h2>
 
           <label className="form-label">

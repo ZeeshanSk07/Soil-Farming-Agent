@@ -9,7 +9,8 @@ import { HiOutlineLogout } from "react-icons/hi";
 import { IoIosArrowDown } from "react-icons/io";
 import { RxCross2 } from "react-icons/rx";
 import { useNavigate } from "react-router-dom";
-import {updAdmin} from '../../apis/user';
+import { updAdmin } from "../../apis/user";
+import farmingAgent from "../../assets/farmingagent.png";
 
 function Navbar() {
   const [open, setOpen] = useState(false);
@@ -27,9 +28,8 @@ function Navbar() {
   const [closing, setClosing] = useState(false);
 
   const [update, setUpdate] = useState(false);
-  const [updusername, setUpdusername] = useState('');
-  const [newpassword, setNewpassword] = useState('');
-
+  const [updusername, setUpdusername] = useState("");
+  const [newpassword, setNewpassword] = useState("");
 
   const navigate = useNavigate();
 
@@ -113,21 +113,21 @@ function Navbar() {
     navigate("/");
   };
 
-  const updateuser = async(e) => {
+  const updateuser = async (e) => {
     e.preventDefault();
-    try{
-      const response = await updAdmin(user,updusername, newpassword,token);
+    try {
+      const response = await updAdmin(user, updusername, newpassword, token);
       console.log(response);
-      if(response.status === 200){
+      if (response.status === 200) {
         toast.success("Profile updated successfully");
         setUpdate(false);
-        setUpdusername('');
-        setNewpassword('');
-      }else{
+        setUpdusername("");
+        setNewpassword("");
+      } else {
         console.log("Failed to update profile");
         toast.error("Failed to update profile");
       }
-    }catch(e){
+    } catch (e) {
       console.log(e);
       toast.error("Failed to update profile");
     }
@@ -137,8 +137,32 @@ function Navbar() {
     <>
       <div className="navbar">
         <nav>
-          <div>&nbsp;</div>
-          <h1>soil farming agent</h1>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              width: "fit-content",
+              marginLeft: '0.5rem'
+            }}
+          >
+            <img
+              width={65}
+              height={65}
+              style={{
+                backgroundColor: "white",
+                backgroundClip: "border-box",
+                borderRadius: "50%",
+                margin: "3rem 0 0 2rem",
+              }}
+              src={farmingAgent}
+              alt="Logo"
+            />
+            <h1>
+              farming <br />
+              agent
+            </h1>
+          </div>
+          <div></div>
           <ul>
             <p
               onClick={(e) => {
@@ -182,7 +206,7 @@ function Navbar() {
               cursor: "pointer",
             }}
           >
-            <RxCross2 size={32} />
+            <RxCross2 onClick={(e) => setUpdate(false)} size={32} />
           </div>
           <h1>Update Profile</h1>
           <form>
@@ -192,7 +216,7 @@ function Navbar() {
                 type="text"
                 name="updusername"
                 placeholder="New Username"
-                onChange={(e)=>setUpdusername(e.target.value)}
+                onChange={(e) => setUpdusername(e.target.value)}
               />
             </label>
             <label>
@@ -201,12 +225,12 @@ function Navbar() {
                 type="text"
                 name="updpassword"
                 placeholder="New Password"
-                onChange={(e)=>setNewpassword(e.target.value)}
+                onChange={(e) => setNewpassword(e.target.value)}
               />
             </label>
             <div className="buttons">
               <button onClick={updateuser}>Update</button>
-              <button>Cancel</button>
+              <button onClick={(e) => setUpdate(false)}>Cancel</button>
             </div>
           </form>
         </div>

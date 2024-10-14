@@ -62,4 +62,19 @@ const editSoil = async(id, characteristics, suitable_crops, distributor,token) =
     }
 }
 
-export {postSoil, getSoils, DeleteSoil, editSoil};
+const getsoil_details = async (i_id, token) => {
+    try {
+        const response = await axios.get(`${Backend_url}/getsoil/${i_id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        console.log(response);
+        return response;
+    } catch (error) {
+        console.log(error);
+        return error;
+    }
+}
+
+export {postSoil, getSoils, DeleteSoil, editSoil, getsoil_details};

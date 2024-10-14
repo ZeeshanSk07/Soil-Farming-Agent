@@ -1,9 +1,14 @@
-import React from 'react'
+import React from 'react';
+import Navbar from '../components/Dashboard/Navbar';
+import PublicDash from '../components/Dashboard/PublicDash';
 
 function UserDashboard() {
   return (
-    <div>UserDashboard</div>
+    <>
+        <Navbar />
+        <PublicDash />
+    </>
   )
 }
 
-export default UserDashboard
+export default UserDashboard;

@@ -8,10 +8,13 @@ import { MdDelete } from "react-icons/md";
 import { getSoils, DeleteSoil } from "../../apis/soil";
 import { RxCross2 } from "react-icons/rx";
 import { editSoil } from "../../apis/soil";
+import { IoMdEye } from "react-icons/io";
+import { getsoil_details } from "../../apis/soil";
+import farmingAgent from "../../assets/farmingagent.png";
 
 function Dashboard() {
   const [soils, setSoils] = useState([]);
-  const [del, setDel] = useState('');
+  const [del, setDel] = useState("");
 
   const [characteristics, setCharacteristics] = useState([]);
   const [suitable_crops, setSuitable_crops] = useState([]);
@@ -19,27 +22,33 @@ function Dashboard() {
   const [cropInput, setCropInput] = useState("");
   const [distributor, setDistributor] = useState("");
   const [token, setToken] = useState(null);
-  const [id, setId] = useState('');
+  const [id, setId] = useState("");
 
-  const [active, setActive] = useState()
+  const [active, setActive] = useState("");
   const [editmodal, setEditModal] = useState(false);
+  const [viewmodal, setViewModal] = useState(false);
 
-  const fetchSoils = async () => {
-      const tok = localStorage.getItem("token");
-      setToken(tok);
-      try {
-        const allsoil = await getSoils(tok);
-        if (allsoil.status === 200) {
-          setSoils(allsoil.data);
-        } else {
-          console.log("Error fetching soils:", allsoil.data.message);
-        }
-      } catch (error) {
-        console.log("Error fetching soils:", error);
-      }
-    };
+  const [fetchsoil, setFetchsoil] = useState();
   useEffect(() => {
-    fetchSoils();
+    console.log("Updated fetchsoil:", fetchsoil);
+  }, [fetchsoil]);
+
+  const fetchSoildata = async () => {
+    const tok = localStorage.getItem("token");
+    setToken(tok);
+    try {
+      const allsoil = await getSoils(tok);
+      if (allsoil.status === 200) {
+        setSoils(allsoil.data);
+      } else {
+        console.log("Error fetching soils:", allsoil.data.message);
+      }
+    } catch (error) {
+      console.log("Error fetching soils:", error);
+    }
+  };
+  useEffect(() => {
+    fetchSoildata();
   }, [soils]);
 
   const AddCharacteristic = (e) => {
@@ -63,7 +72,7 @@ function Dashboard() {
     console.log(del_res);
     if (del_res.status === 200) {
       toast.success("Distributor deleted successfully");
-      setDel('');
+      setDel("");
     } else {
       toast.error("Unable to delete");
     }
@@ -74,161 +83,275 @@ function Dashboard() {
       setEditModal(false);
       setCharacteristicInput("");
       setCropInput("");
-    }else{
+      setActive("");
+    } else {
       setEditModal(true);
     }
-  }
+  };
 
-  const updateSoil = async(e) => {
+  const updateSoil = async (e) => {
     e.preventDefault();
-    try{
-      const upd = await editSoil(id, characteristics, suitable_crops, distributor,token);
+    try {
+      const upd = await editSoil(
+        id,
+        characteristics,
+        suitable_crops,
+        distributor,
+        token
+      );
       console.log(upd);
-      if(upd.status === 200){
+      if (upd.status === 200) {
         toast.success("Soil updated successfully");
-        fetchSoils();
+        fetchSoildata();
         canceledit();
-      }else{
+      } else {
         toast.error("Error updating soil");
       }
-    }catch(err){
+    } catch (err) {
       console.log(err);
       toast.error("Error updating!");
     }
-  }
+  };
+
+  const viewsoil = async (e, i_id) => {
+    e.preventDefault();
+    setViewModal(true);
+    console.log("view id :", i_id);
+    setActive(i_id);
+    try {
+      const view = await getsoil_details(i_id, token);
+      if (view.status === 200) {
+        setFetchsoil(view.data);
+        console.log(fetchsoil);
+      } else {
+        toast.error("Error fetching soil details");
+      }
+    } catch (e) {
+      console.log(e);
+      toast.error("Error viewing soil!");
+    }
+  };
 
   return (
     <div className="dashboard">
-  <div className="content">
-    {(soils || [])
-      .slice()
-      .reverse()
-      .map((i, index) => {
-        return (
-          <div key={index} className="table-edit-wrapper">
-            <div className="table">
-              <div className="col">
-                <div className="title">
-                  <FaChevronCircleRight size={20} />
-                  <span> {i.name}</span>
+      <div className="content">
+        {(soils || [])
+          .slice()
+          .reverse()
+          .map((i, index) => {
+            return (
+              <div key={index} className="table-edit-wrapper">
+                <div onClick={(e) => {
+                        viewsoil(e, i._id);
+                      }} className={`table ${active === i._id ? "active1" : ""} `}>
+                  <div className="triangle"></div>
+                  <div className="col">
+                    <div className="title">
+                      <FaChevronCircleRight size={20} />
+                      <span> {i.name}</span>
+                    </div>
+                    <div className="color">{i.color} color</div>
+                  </div>
+
+                  <div className="col distributor">
+                    <span>
+                      <FaDotCircle size={10} /> Distributor :
+                    </span>
+                    <div>{i.distributor}</div>
+                    <div>{i.location}</div>
+                  </div>
                 </div>
-                <div className="color">{i.color} color</div>
+                <div className="edit">
+                  <span className="delbtn">
+                    <IoMdEye
+                      onClick={(e) => {
+                        viewsoil(e, i._id);
+                      }}
+                      style={{ color: "black" }} 
+                      size={24}
+                    />
+                  </span>
+                  <span
+                    className="editbtn"
+                    onClick={(e) => {
+                      setActive(i._id);
+                      setId(i._id);
+                      setEditModal(true);
+                      setCharacteristics(i.characteristics);
+                      setSuitable_crops(i.suitable_crops);
+                      setDistributor(i.distributor);
+                    }}
+                  >
+                    <RiEdit2Fill style={{ color: "black" }} />
+                  </span>
+                  <span
+                    className="delbtn"
+                    onClick={(e) => {
+                      setDel(i._id);
+                      setActive(i._id);
+                    }}
+                  >
+                    <MdDelete style={{ color: "black" }} />
+                  </span>
+                </div>
               </div>
+            );
+          })}
 
-              <div className="col distributor">
-                <span>
-                  <FaDotCircle size={10} /> Distributor :
-                </span>
-                <div>{i.distributor}</div>
-                <div>{i.location}</div>
+        {editmodal && (
+          <>
+            <div className="modal-backdrop"></div>
+            <div className="form-container">
+              <div
+                style={{
+                  display: "flex",
+                  float: "right",
+                  marginRight: "-0.5rem",
+                  cursor: "pointer",
+                }}
+              >
+                <RxCross2 onClick={canceledit} size={32} />
               </div>
-            </div>
-            <div className="edit">
-              <span className="editbtn" onClick={(e)=>{
-               
-                setId(i._id);
-                setEditModal(true);
-                setCharacteristics(i.characteristics);
-                setSuitable_crops(i.suitable_crops);
-                setDistributor(i.distributor);
-              }}>
-                <RiEdit2Fill />
-              </span>
-              <span className="delbtn" onClick={(e) => setDel(i._id)}>
-                <MdDelete />
-              </span>
-            </div>
-          </div>
-        );
-      })}
+              <h1>Edit Distributor</h1>
+              <form>
+                <div>
+                  <label>
+                    Characteristic :
+                    <input
+                      type="text"
+                      value={characteristicInput}
+                      onChange={(e) => setCharacteristicInput(e.target.value)}
+                    />
+                    <button className="charbtn" onClick={AddCharacteristic}>
+                      Add
+                    </button>
+                  </label>
+                  <ul>
+                    {characteristics.map((item, index) => (
+                      <li key={index}>{item}</li>
+                    ))}
+                  </ul>
+                </div>
 
-    {
-      editmodal && (
-        <div className="form-container">
-          <div
-            style={{
-              display: "flex",
-              float: "right",
-              marginRight: "-0.5rem",
-              cursor: "pointer",
-            }}
-          >
-            <RxCross2 onClick={canceledit} size={32} />
+                <div>
+                  <label>
+                    <span> Suitable Crop : </span>
+                    <input
+                      type="text"
+                      value={cropInput}
+                      onChange={(e) => setCropInput(e.target.value)}
+                    />
+                    <button className="charbtn" type="button" onClick={AddCrop}>
+                      Add
+                    </button>
+                  </label>
+                  <ul>
+                    {suitable_crops.map((item, index) => (
+                      <li key={index}>{item}</li>
+                    ))}
+                  </ul>
+                </div>
+                <label>
+                  Distributor :
+                  <input
+                    type="text"
+                    onChange={(e) => setDistributor(e.target.value)}
+                    name="distributor"
+                  />
+                </label>
 
-          </div>
-          <h1>Edit Distributor</h1>
-          <form>
-            <div>
-              <label>
-                Characteristic :
-                <input
-                  type="text"
-                  value={characteristicInput}
-                  onChange={(e) => setCharacteristicInput(e.target.value)}
-                />
-                <button className="charbtn" onClick={AddCharacteristic}>
-                  Add
+                <button onClick={updateSoil} className="addsoil">
+                  Update
                 </button>
-              </label>
-              <ul>
-                {characteristics.map((item, index) => (
-                  <li key={index}>{item}</li>
-                ))}
-              </ul>
+              </form>
             </div>
+          </>
+        )}
+        {viewmodal && (
+          <>
+            <div className="modal-backdrop"></div>
+            <div className="view-container">
+              {fetchsoil ? (
+                <div>
+                  <div className="close-icon">
+                    <RxCross2
+                      onClick={() => {
+                        setViewModal(false);
+                        setFetchsoil("");
+                        setActive("");
+                        setDel("");
+                        setCharacteristics("");
+                        setSuitable_crops("");
+                        setDistributor("");
+                      }}
+                      size={21}
+                    />
+                  </div>
+                  <h1>Distributor Details</h1>
+                  <div className="details-section">
+                    <span>Soil Name :</span>
+                    <div>{fetchsoil.name}</div>
+                  </div>
+                  <div className="details-section">
+                    <span>Soil Color:</span>
+                    <div>{fetchsoil.color}</div>
+                  </div>
+                  <div className="details-section">
+                    <h3>Characteristics :</h3>
+                    <ul>
+                      {fetchsoil.characteristics.map((char, charIndex) => (
+                        <li key={charIndex}>{char}</li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className="details-section">
+                    <h3>Suitable Crops :</h3>
+                    <ul>
+                      {fetchsoil.suitable_crops.map((crop, cropIndex) => (
+                        <li key={cropIndex}>{crop}</li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className="details-section">
+                    <span>Distributor :</span>
+                    <div>{fetchsoil.distributor}</div>
+                  </div>
+                </div>
+              ) : (
+                <p>No data available.</p>
+              )}
+            </div>
+          </>
+        )}
 
-            <div>
-              <label>
-                <span> Suitable Crop : </span>
-                <input
-                  type="text"
-                  value={cropInput}
-                  onChange={(e) => setCropInput(e.target.value)}
-                />
+        {del && (
+          <>
+            <div className="modal-backdrop"></div>
+            <div className="delete-confirm">
+              <h2>Do you want to delete?</h2>
+              <div className="buttons">
                 <button
-                  className="charbtn"
-                  type="button"
-                  onClick={AddCrop}
+                  onClick={() => {
+                    del_soil(del);
+                    setActive("");
+                  }}
                 >
-                  Add
+                  Delete
                 </button>
-              </label>
-              <ul>
-                {suitable_crops.map((item, index) => (
-                  <li key={index}>{item}</li>
-                ))}
-              </ul>
+                <button
+                  onClick={() => {
+                    setDel("");
+                    setActive("");
+                  }}
+                >
+                  Cancel
+                </button>
+              </div>
             </div>
-            <label>
-              Distributor :
-              <input
-                type="text"
-                onChange={(e) => setDistributor(e.target.value)}
-                name="distributor"
-                
-              />
-            </label>
-
-            <button onClick={updateSoil} className="addsoil">
-              Update
-            </button>
-          </form>
-        </div>
-      )
-    }
-      
-    {del && (
-      <div className="delete-confirm">
-        <h2>Do you want to delete?</h2>
-        <div className="buttons">
-          <button onClick={() => del_soil(del)}>Delete</button>
-          <button onClick={() => setDel('')}>Cancel</button>
-        </div>
+          </>
+        )}
       </div>
-    )}
-  </div>
-</div>
-
+    </div>
   );
 }
 
