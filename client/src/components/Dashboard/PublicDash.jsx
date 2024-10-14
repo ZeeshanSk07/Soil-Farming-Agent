@@ -99,7 +99,7 @@ function PublicDash() {
                       onClick={(e) => {
                         viewsoil(e, i._id);
                       }}
-                      style={{ color: "#5e9f30" }} 
+                      style={{ color: "black" }} 
                       size={24}
                     />
                   </span>

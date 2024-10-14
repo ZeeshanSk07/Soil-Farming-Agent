@@ -1,11 +1,11 @@
 import React from 'react';
-import Navbar from '../components/Dashboard/Navbar';
+import UserNav from '../components/Dashboard/UserNav';
 import PublicDash from '../components/Dashboard/PublicDash';
 
 function UserDashboard() {
   return (
     <>
-        <Navbar />
+        <UserNav />
         <PublicDash />
     </>
   )

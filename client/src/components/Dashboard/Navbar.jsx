@@ -236,6 +236,8 @@ function Navbar() {
         </div>
       )}
       {open && (
+        <>
+        <div className="modal-backdrop"></div>
         <div className="form-container">
           <div
             style={{
@@ -326,6 +328,7 @@ function Navbar() {
             </button>
           </form>
         </div>
+        </>
       )}
     </>
   );
