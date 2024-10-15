@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const Backend_url = 'http://localhost:4000/user'
+const Backend_url = 'https://soil-farming-agent-pxaa.onrender.com/user'
 
 const register = async (name, email, password) =>{
     try{

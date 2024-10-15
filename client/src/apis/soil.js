@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const Backend_url = 'http://localhost:4000/soil'
+const Backend_url = 'https://soil-farming-agent-pxaa.onrender.com/soil'
 
 const postSoil = async (name, color, characteristics, suitable_crops, distributor,token)=>{
     try{
