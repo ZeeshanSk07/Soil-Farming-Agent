@@ -64,6 +64,7 @@ function Register() {
               type="text"
               name="name"
               className="form-input"
+              placeholder="Enter Full Name"
             />
           </label>
           <span className="error">{errors.name}</span>
@@ -76,6 +77,7 @@ function Register() {
               type="email"
               name="email"
               className="form-input"
+              placeholder="Email address"
             />
           </label>
           <span className="error">{errors.email}</span>
@@ -88,6 +90,7 @@ function Register() {
               type="password"
               name="password"
               className="form-input"
+              placeholder="Password"
             />
           </label>
           <span className="error">{errors.password}</span>

@@ -99,3 +99,16 @@
     }
   }
   
+  @media screen and (max-width:800px) {
+    .register-container{
+      width: 100vw;
+      margin: 0;
+      padding: auto;
+    }
+    .register-form{
+      width: 100%;
+      min-width: 80vw;
+      padding: 1vh 10vw;
+      box-shadow: none;
+    }
+  }

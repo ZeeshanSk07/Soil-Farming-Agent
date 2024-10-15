@@ -146,14 +146,7 @@ function UserNav() {
             }}
           >
             <img
-              width={65}
-              height={65}
-              style={{
-                backgroundColor: "white",
-                backgroundClip: "border-box",
-                borderRadius: "50%",
-                margin: "3rem 0 0 2rem",
-              }}
+              className="headimg"
               src={farmingAgent}
               alt="Logo"
             />

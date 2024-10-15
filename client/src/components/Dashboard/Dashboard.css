@@ -27,7 +27,6 @@
   pointer-events: none; 
 }
 
-
 body {
   width: 100vw;
   height: auto;
@@ -43,7 +42,8 @@ body {
 .table-edit-wrapper {
   display: flex; 
   align-items: center;
-  margin-bottom: 1rem; 
+  margin-bottom: 1rem;
+  margin: 0 auto 1rem auto; 
   justify-content: center;
   animation: right 0.3s ease;
 }
@@ -68,6 +68,94 @@ body {
   }
    z-index: 0;
 }
+@media screen and (max-width: 700px){
+  .dashboard {
+    width: 100vw;
+    margin: 0;
+    padding: 10vh 0vw;
+  }
+
+  .content {
+    width: 100vw;
+    padding: 0vh 7vw;
+    margin: 0;
+  }
+  .table-edit-wrapper{
+    overflow: hidden;
+    justify-content: flex-start;
+
+  }
+  
+  .table {
+    width: 50vw; 
+    min-width: fit-content;
+    overflow: hidden;
+    padding: 2.65vh 6vw;
+    justify-content: space-between;
+    background-color:antiquewhite;
+  }
+  .table .triangle {
+    visibility: hidden;
+  }
+  .title{
+    font-size: 1.4rem;
+    font-weight: 600;
+    width: 100% !important;
+    margin-bottom: 0rem;
+    overflow: auto !important;
+    white-space: nowrap;
+    scrollbar-width: none;
+    text-transform: capitalize;
+  }
+  .col{
+    font-size: 0.6rem;
+    white-space: wrapping;
+  }
+  .distributor{
+    /* font-size: 1rem;
+    font-weight: 500;
+    white-space: nowrap;
+    margin-bottom: 0rem;
+    width: 31vw !important; */
+    visibility: hidden;
+  }
+  .edit{
+    width: 10vw !important;
+  }
+  .editbtn{
+    margin: 0 0.2rem 0 0.2rem;
+  }
+  .form-container{
+    width:100vw !important;
+    padding: 2vh 5vw;
+  }
+  .form-container h1{
+    font-size: 1.8rem;
+  }
+  .form-container form{
+    width: 65vw !important;
+  }
+  .form-container form div{
+    margin-bottom: 0vh;
+  }
+  .form-container form div label input {
+    margin-top: 1vh !important;
+    margin-bottom: 0 !important;
+  }
+
+  .view-container {
+    width: 80vw !important;
+    padding: 0vh 7vw;
+    margin: 0;
+    overflow: auto;
+  }
+  .delete-confirm{
+    width: 65vw !important;
+  }
+  button{
+    padding: 1.5vh 2vw !important;
+  }
+}
 .table .triangle {
   position: absolute;
   width: 0;
@@ -77,8 +165,8 @@ body {
   padding: 0;
   margin:1vh;
   z-index: -1;
-  margin-left: -2vw;
-  border-radius: 16px 0 0 16px;  
+  margin-left: -2rem;
+  border-radius: 1rem 0 0 1rem;  
 }
 
 .active1 {

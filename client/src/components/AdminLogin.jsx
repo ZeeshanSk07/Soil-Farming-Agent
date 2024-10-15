@@ -51,6 +51,7 @@ function AdminLogin() {
               type="text"
               name="name"
               className="form-input"
+              placeholder='Username'
             />
           </label>
           <span className="error">{errors.username}</span>
@@ -63,6 +64,7 @@ function AdminLogin() {
               type="password"
               name="password"
               className="form-input"
+              placeholder='Password'
             />
           </label>
           <span className="error">{errors.password}</span>
