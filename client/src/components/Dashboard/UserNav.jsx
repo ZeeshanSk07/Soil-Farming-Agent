@@ -9,7 +9,7 @@ import { HiOutlineLogout } from "react-icons/hi";
 import { IoIosArrowDown } from "react-icons/io";
 import { RxCross2 } from "react-icons/rx";
 import { useNavigate } from "react-router-dom";
-import { updAdmin } from "../../apis/user";
+import { updUser } from "../../apis/user";
 import farmingAgent from "../../assets/farmingagent.png";
 
 function UserNav() {
@@ -116,7 +116,7 @@ function UserNav() {
   const updateuser = async (e) => {
     e.preventDefault();
     try {
-      const response = await updAdmin(user, updusername, newpassword, token);
+      const response = await updUser(user, updemail, updpassword, token);
       console.log(response);
       if (response.status === 200) {
         toast.success("Profile updated successfully");
@@ -199,11 +199,11 @@ function UserNav() {
           <h1>Update Profile</h1>
           <form>
             <label>
-              Username :
+              Email :
               <input
-                type="text"
-                name="updusername"
-                placeholder="New Username"
+                type="email"
+                name="updemail"
+                placeholder="Email Address"
                 onChange={(e) => setUpdusername(e.target.value)}
               />
             </label>

@@ -84,31 +84,27 @@ const Updateuser = () => {
         try {
             const userId = req.params.id;
             
-            const { updname, updemail, oldpassword, newpassword } = req.body;
-            if (!updname || !updemail || !oldpassword || !newpassword) {
+            const { updemail, updpassword } = req.body;
+            if (!updemail || !updpassword) {
                 return res.status(400).json({ message: 'Please provide all required fields' });
             }
 
             const userone = await User.findById(userId);
-            if (!userone) {
+            if (userone){
+                userone.email = updemail;
+                userone.password = await bcrypt.hash(updpassword, 10);
+
+                await userone.save();
+
+                res.json({
+                    message: 'User updated successfully',
+                    user: userone
+                });
+            }else{
                 return res.status(404).json({ message: 'User not found' });
             }
 
-            const ispasscorrect = await bcrypt.compare(oldpassword, userone.password);
-            if (!ispasscorrect) {
-                return res.status(401).json({ message: 'Invalid Password' });
-            }
-
-            userone.name = updname;
-            userone.email = updemail;
-            userone.password = await bcrypt.hash(newpassword, 10);
-
-            await userone.save();
-
-            res.json({
-                message: 'User updated successfully',
-                user: userone
-            });
+            
         } catch (error) {
             res.status(500).json({ message: 'Server Error', error: error.message });
         }

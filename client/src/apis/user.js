@@ -64,4 +64,19 @@ const updAdmin = async(user,updusername, newpassword, token) => {
     }
 }
 
-export {register, login, adminlogin, updAdmin};
+const updUser = async(user, updemail, updpassword, token) =>{
+    try{
+        const response = await axios.put(`${Backend_url}/update/${user}`, {updemail, updpassword}, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        console.log(response);
+        return response;
+    }catch(err){
+        console.log(err);
+        return err;
+    }
+}
+
+export {register, login, adminlogin, updAdmin, updUser};
