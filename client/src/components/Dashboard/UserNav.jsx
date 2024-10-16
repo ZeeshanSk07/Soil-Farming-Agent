@@ -28,8 +28,8 @@ function UserNav() {
   const [closing, setClosing] = useState(false);
 
   const [update, setUpdate] = useState(false);
-  const [updusername, setUpdusername] = useState("");
-  const [newpassword, setNewpassword] = useState("");
+  const [updemail, setUpdemail] = useState("");
+  const [updpassword, setUpdpassword] = useState("");
 
   const navigate = useNavigate();
 
@@ -53,21 +53,7 @@ function UserNav() {
     setUser(userid);
   }, []);
 
-  // Add to Characteristics array
-  const handleAddCharacteristic = () => {
-    if (characteristicInput.trim() !== "") {
-      setCharacteristics([...characteristics, characteristicInput]);
-      setCharacteristicInput("");
-    }
-  };
-
-  // Add to Suitable Crops array
-  const handleAddCrop = () => {
-    if (cropInput.trim() !== "") {
-      setSuitable_crops([...suitable_crops, cropInput]);
-      setCropInput("");
-    }
-  };
+  
 
   const Addsoil = () => {
     if (!open) {
@@ -82,31 +68,7 @@ function UserNav() {
     }
   };
 
-  const newsoil = async (e) => {
-    e.preventDefault();
-    const res = await postSoil(
-      name,
-      color,
-      characteristics,
-      suitable_crops,
-      distributor,
-      token
-    );
-    console.log(res);
-    if (res.status === 201) {
-      console.log("Soil added successfully");
-      toast.success("Soil added successfully");
-      setName("");
-      setColor("");
-      setCharacteristics([]);
-      setSuitable_crops([]);
-      setDistributor("");
-      setOpen(false);
-    } else {
-      console.log("Failed to add soil");
-      toast.error("Failed to add soil");
-    }
-  };
+ 
 
   const logout = () => {
     localStorage.removeItem("token");
@@ -121,8 +83,8 @@ function UserNav() {
       if (response.status === 200) {
         toast.success("Profile updated successfully");
         setUpdate(false);
-        setUpdusername("");
-        setNewpassword("");
+        setUpdemail("");
+        setUpdpassword("");
       } else {
         console.log("Failed to update profile");
         toast.error("Failed to update profile");
@@ -204,7 +166,7 @@ function UserNav() {
                 type="email"
                 name="updemail"
                 placeholder="Email Address"
-                onChange={(e) => setUpdusername(e.target.value)}
+                onChange={(e) => setUpdemail(e.target.value)}
               />
             </label>
             <label>
@@ -213,7 +175,7 @@ function UserNav() {
                 type="text"
                 name="updpassword"
                 placeholder="New Password"
-                onChange={(e) => setNewpassword(e.target.value)}
+                onChange={(e) => setUpdpassword(e.target.value)}
               />
             </label>
             <div className="buttons">

@@ -66,6 +66,7 @@ const updAdmin = async(user,updusername, newpassword, token) => {
 
 const updUser = async(user, updemail, updpassword, token) =>{
     try{
+        console.log(user, updemail, updpassword, token);
         const response = await axios.put(`${Backend_url}/update/${user}`, {updemail, updpassword}, {
             headers: {
                 Authorization: `Bearer ${token}`
