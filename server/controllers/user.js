@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const Public = require('../model/user');
+const PublicUser = require('../model/user');
 const Admin = require('../model/admin');
 
 function signup() {
@@ -14,7 +14,7 @@ function signup() {
                 });
             }
 
-            const existingUser = await Public.findOne({ email });
+            const existingUser = await PublicUser.findOne({ email });
 
             if (existingUser) {
                 return res.status(400).json({
@@ -22,7 +22,7 @@ function signup() {
                 });
             } else {
                 const hashedPassword = await bcrypt.hash(password, 10);
-                const newUser = new Public({
+                const newUser = new PublicUser({
                     name,
                     email,
                     password: hashedPassword,
@@ -46,7 +46,7 @@ function login() {
     return async (req, res, next) => {
         try {
             const { email, password } = req.body;
-            const existingUser = await Public.findOne({ email: email });
+            const existingUser = await PublicUser.findOne({ email: email });
 
             if (existingUser) {
                 const isPasswordCorrect = await bcrypt.compare(password, existingUser.password);
@@ -90,7 +90,7 @@ const Updateuser = () => {
                 return res.status(400).json({ message: 'Please provide all required fields' });
             }
 
-            const userone = await Public.findById(userId);
+            const userone = await PublicUser.findById(userId);
             console.log(userone);
             if (userone){
                 userone.email = updemail;

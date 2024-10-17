@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const UserSchema = new mongoose.Schema({
+const PublicUserSchema = new mongoose.Schema({
     name:{
         type: String,
         required: (true,'Name required')
@@ -15,4 +15,4 @@ const UserSchema = new mongoose.Schema({
         required: (true,'Password required')
     }
 })
-module.exports = mongoose.model('Public', UserSchema);
+module.exports = mongoose.model('PublicUser', PublicUserSchema);

@@ -6,7 +6,7 @@ const { verifyToken } = require('../middlewares/verifyToken');
 
 router.post('/login', login());
 router.post('/signup', signup());
-router.put('/update/:id', Updateuser());
+router.put('/update/:id',verifyToken, Updateuser());
 router.post('/admin', adminlogin());
 router.put('/admin/:id',verifyToken, updateAdmin())
 
