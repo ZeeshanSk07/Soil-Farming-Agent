@@ -33,6 +33,7 @@ function Register() {
             if (log.status === 200) {
               console.log("user login successful.", log);
               navigate('/dashboard');
+              localStorage.setItem('userid', response.data.id);
             } else {
               console.log("login error", log);
               navigate("/");

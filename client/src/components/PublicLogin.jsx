@@ -23,6 +23,7 @@ function PublicLogin() {
       const response = await login(email, password);
       if(response.status === 200){
         toast.success('Login successful');
+        localStorage.setItem('userid', response.data.id);
         navigate('/dashboard');
       } else {
         toast.error('Invalid credentials');
