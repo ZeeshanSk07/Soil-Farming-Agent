@@ -54,6 +54,13 @@
     border-radius: 4px;
     cursor: pointer;
     margin-top: 1rem;
+    text-align: center;
+    display: block;
+    justify-content: center;
+  }
+  button.form-button{
+    display: flex;
+    justify-content: center;
   }
   
   /* Button hover effect */

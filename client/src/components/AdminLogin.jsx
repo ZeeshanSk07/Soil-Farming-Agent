@@ -3,11 +3,14 @@ import './AdminLogin.css';
 import { adminlogin } from '../apis/user';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import {TailSpin} from 'react-loader-spinner'
 
 function AdminLogin() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({});
+
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
   
@@ -20,7 +23,9 @@ function AdminLogin() {
 
     if (Object.keys(newErrors).length === 0){
       try{
+        setLoading(true);
         const response = await adminlogin(username, password);
+        setLoading(false);
         console.log(response);
         if (response.status === 200) {
           console.log("Admin login successful.");
@@ -31,6 +36,7 @@ function AdminLogin() {
           setErrors({...errors, message: 'Invalid credentials' });
         }
       }catch(err){
+        setLoading(false);
         console.log(err);
         setErrors({...errors, message: 'An error occurred while logging in.' });
       }
@@ -69,7 +75,21 @@ function AdminLogin() {
           </label>
           <span className="error">{errors.password}</span>
 
-          <button onClick={adminlogins} className="form-button">Login</button>
+          <button onClick={adminlogins} className="form-button">{loading ? (
+            <TailSpin
+              visible={true}
+              height="18"
+              width="18"
+              color="grey"
+              strokeWidth="5"
+              animationDuration="0.75"
+              ariaLabel="rotating-lines-loading"
+              wrapperStyle={{}}
+              wrapperClass=""
+            />
+          ) : (
+            <>Login</>
+          )}</button>
           {errors.message && <p style={{ color: 'red' }}>{errors.message}</p>}
         </form>
       </div>

@@ -3,11 +3,14 @@ import './PublicLogin.css';
 import { login } from '../apis/user';
 import toast from 'react-hot-toast';
 import { useNavigate } from "react-router-dom";
+import {TailSpin } from 'react-loader-spinner'
 
 function PublicLogin() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({});
+
+  const [loading,setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -20,7 +23,9 @@ function PublicLogin() {
 
     if (Object.keys(newErrors).length === 0){
     try{
+      setLoading(true);
       const response = await login(email, password);
+      setLoading(false);
       if(response.status === 200){
         toast.success('Login successful');
         localStorage.setItem('userid', response.data.id);
@@ -28,9 +33,10 @@ function PublicLogin() {
       } else {
         toast.error('Invalid credentials');
       }
-    }catch(e){
-      console.log(e);
-      toast.error('An error occurred while logging in');
+    }catch(er){
+      console.log(er);
+      setLoading(false);
+      toast.error(er.message || 'error');
     }
   }
   }
@@ -67,7 +73,21 @@ function PublicLogin() {
           </label>
           <span className="error">{errors.password}</span>
 
-          <button type="submit" className="form-button">Login</button>
+          <button type="submit" className="form-button">{loading ? (
+            <TailSpin
+              visible={true}
+              height="18"
+              width="18"
+              color="grey"
+              strokeWidth="5"
+              animationDuration="0.75"
+              ariaLabel="rotating-lines-loading"
+              wrapperStyle={{}}
+              wrapperClass=""
+            />
+          ) : (
+            <>Login</>
+          )}</button>
 
           <p className="form-footer">
             Don't have an account? <a href="/register" className="form-link">Register</a>

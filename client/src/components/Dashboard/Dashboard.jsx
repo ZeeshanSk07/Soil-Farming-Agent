@@ -11,6 +11,7 @@ import { editSoil } from "../../apis/soil";
 import { IoMdEye } from "react-icons/io";
 import { getsoil_details } from "../../apis/soil";
 import farmingAgent from "../../assets/farmingagent.png";
+import {TailSpin} from 'react-loader-spinner';
 
 function Dashboard() {
   const [soils, setSoils] = useState([]);
@@ -27,6 +28,7 @@ function Dashboard() {
   const [active, setActive] = useState("");
   const [editmodal, setEditModal] = useState(false);
   const [viewmodal, setViewModal] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const [fetchsoil, setFetchsoil] = useState();
   useEffect(() => {
@@ -37,13 +39,16 @@ function Dashboard() {
     const tok = localStorage.getItem("token");
     setToken(tok);
     try {
+      setLoading(true);
       const allsoil = await getSoils(tok);
+      setLoading(false);
       if (allsoil.status === 200) {
         setSoils(allsoil.data);
       } else {
         console.log("Error fetching soils:", allsoil.data.message);
       }
     } catch (error) {
+      setLoading(false);
       console.log("Error fetching soils:", error);
     }
   };
@@ -68,13 +73,21 @@ function Dashboard() {
   };
 
   const del_soil = async (id) => {
-    const del_res = await DeleteSoil(id, token);
-    console.log(del_res);
-    if (del_res.status === 200) {
-      toast.success("Distributor deleted successfully");
-      setDel("");
-    } else {
-      toast.error("Unable to delete");
+    try{
+      setLoading(true);
+      const del_res = await DeleteSoil(id, token);
+      setLoading(false);
+      console.log(del_res);
+      if (del_res.status === 200) {
+        toast.success("Distributor deleted successfully");
+        setDel("");
+      } else {
+        toast.error("Unable to delete");
+      }
+    }catch(err){
+      setLoading(false);
+      console.log(err);
+      toast.error("Failed to delete soil");
     }
   };
 
@@ -92,6 +105,7 @@ function Dashboard() {
   const updateSoil = async (e) => {
     e.preventDefault();
     try {
+      setLoading(true);
       const upd = await editSoil(
         id,
         characteristics,
@@ -99,6 +113,7 @@ function Dashboard() {
         distributor,
         token
       );
+      setLoading(false);
       console.log(upd);
       if (upd.status === 200) {
         toast.success("Soil updated successfully");
@@ -108,6 +123,7 @@ function Dashboard() {
         toast.error("Error updating soil");
       }
     } catch (err) {
+      setLoading(false);
       console.log(err);
       toast.error("Error updating!");
     }
@@ -119,7 +135,9 @@ function Dashboard() {
     console.log("view id :", i_id);
     setActive(i_id);
     try {
+      setLoading(true);
       const view = await getsoil_details(i_id, token);
+      setLoading(false);
       if (view.status === 200) {
         setFetchsoil(view.data);
         console.log(fetchsoil);
@@ -127,6 +145,7 @@ function Dashboard() {
         toast.error("Error fetching soil details");
       }
     } catch (e) {
+      setLoading(false);
       console.log(e);
       toast.error("Error viewing soil!");
     }
@@ -198,6 +217,22 @@ function Dashboard() {
             );
           })}
 
+          {loading ? (
+          <>
+            <div className="spinner-container">
+              <TailSpin
+                visible={true}
+                
+                color="#4fa94d"
+                ariaLabel="tail-spin-loading"
+                radius="1"
+              />
+            </div>
+          </>
+          ) : (
+          <>
+          </>
+        )}
         {editmodal && (
           <>
             <div className="modal-backdrop"></div>

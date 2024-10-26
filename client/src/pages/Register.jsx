@@ -3,12 +3,15 @@ import "./Register.css";
 import { register, login } from "../apis/user";
 import toast from "react-hot-toast";
 import {useNavigate} from 'react-router-dom';
+import {TailSpin} from 'react-loader-spinner'
 
 function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
+
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -22,7 +25,9 @@ function Register() {
 
     if (Object.keys(newErrors).length === 0) {
       try {
+        setLoading(true);
         const response = await register(name, email, password);
+        setLoading(false);
         console.log(response);
         if (response.status === 201) {
           toast.success("User created successfully!");
@@ -46,6 +51,7 @@ function Register() {
           toast.error("Error creating user: " + response.data.message);
         }
       } catch (error) {
+        setLoading(false);
         console.error("Signup error:", error);
         toast.error("Error creating user: " + error.message);
       }
@@ -97,7 +103,21 @@ function Register() {
           <span className="error">{errors.password}</span>
 
           <button onClick={registeruser} className="form-button">
-            Register
+          {loading ? (
+            <TailSpin
+              visible={true}
+              height="18"
+              width="18"
+              color="grey"
+              strokeWidth="5"
+              animationDuration="0.75"
+              ariaLabel="rotating-lines-loading"
+              wrapperStyle={{}}
+              wrapperClass=""
+            />
+          ) : (
+            <>Register</>
+          )}
           </button>
 
           <p className="form-footer">

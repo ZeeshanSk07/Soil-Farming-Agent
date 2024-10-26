@@ -10,6 +10,7 @@ import { RxCross2 } from "react-icons/rx";
 import { editSoil } from "../../apis/soil";
 import { IoMdEye } from "react-icons/io";
 import { getsoil_details } from "../../apis/soil";
+import { TailSpin } from "react-loader-spinner";
 
 function PublicDash() {
   const [soils, setSoils] = useState([]);
@@ -18,6 +19,7 @@ function PublicDash() {
   const [distributor, setDistributor] = useState("");
   const [token, setToken] = useState(null);
   const [id, setId] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const [active, setActive] = useState("");
   const [viewmodal, setViewModal] = useState(false);
@@ -32,13 +34,16 @@ function PublicDash() {
     const tok = localStorage.getItem("token");
     setToken(tok);
     try {
+      setLoading(true);
       const allsoil = await getSoils(tok);
+      setLoading(false);
       if (allsoil.status === 200) {
         setSoils(allsoil.data);
       } else {
         console.log("Error fetching soils:", allsoil.data.message);
       }
     } catch (error) {
+      setLoading(false);
       console.log("Error fetching soils:", error);
     }
   };
@@ -51,7 +56,9 @@ function PublicDash() {
     setViewModal(true);
     console.log("view id :", i_id);
     try {
+      setLoading(true);
       const view = await getsoil_details(i_id, token);
+      setLoading(false);
       if (view.status === 200) {
         setFetchsoil(view.data);
         console.log(fetchsoil);
@@ -60,6 +67,7 @@ function PublicDash() {
       }
     } catch (e) {
       console.log(e);
+      setLoading(false);
       toast.error("Error viewing soil!");
     }
   };
@@ -107,6 +115,21 @@ function PublicDash() {
               </div>
             );
           })}
+          {loading ? (
+          <>
+          <div className="spinner-container">
+            <TailSpin
+              visible={true}
+              color="#4fa94d"
+              ariaLabel="tail-spin-loading"
+              radius="1"
+            />
+          </div>
+          </>
+        ) : (
+        <>
+        </>
+      )}
         {viewmodal && (
           <>
             <div className="modal-backdrop"></div>

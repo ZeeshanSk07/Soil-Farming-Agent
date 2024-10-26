@@ -11,6 +11,7 @@ import { RxCross2 } from "react-icons/rx";
 import { useNavigate } from "react-router-dom";
 import { updUser } from "../../apis/user";
 import farmingAgent from "../../assets/farmingagent.png";
+import {TailSpin} from 'react-loader-spinner';
 
 function UserNav() {
   const [open, setOpen] = useState(false);
@@ -30,6 +31,7 @@ function UserNav() {
   const [update, setUpdate] = useState(false);
   const [updemail, setUpdemail] = useState("");
   const [updpassword, setUpdpassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -55,18 +57,18 @@ function UserNav() {
 
   
 
-  const Addsoil = () => {
-    if (!open) {
-      setOpen(true);
-    } else {
-      setOpen(false);
-      setName("");
-      setColor("");
-      setCharacteristics([]);
-      setDistributor("");
-      setSuitable_crops([]);
-    }
-  };
+  // const Addsoil = () => {
+  //   if (!open) {
+  //     setOpen(true);
+  //   } else {
+  //     setOpen(false);
+  //     setName("");
+  //     setColor("");
+  //     setCharacteristics([]);
+  //     setDistributor("");
+  //     setSuitable_crops([]);
+  //   }
+  // };
 
  
 
@@ -78,7 +80,9 @@ function UserNav() {
   const updateuser = async (e) => {
     e.preventDefault();
     try {
+      setLoading(true);
       const response = await updUser(user, updemail, updpassword, token);
+      setLoading(false);
       console.log(response);
       if (response.status === 200) {
         toast.success("Profile updated successfully");
@@ -90,6 +94,7 @@ function UserNav() {
         toast.error("Failed to update profile");
       }
     } catch (e) {
+      setLoading(false);
       console.log(e);
       toast.error("Failed to update profile");
     }
@@ -147,6 +152,9 @@ function UserNav() {
         
       </div>
       {update && (
+        <>
+        <div className="modal-backdrop"></div>
+
         <div className="form-container">
           <div
             style={{
@@ -184,6 +192,23 @@ function UserNav() {
             </div>
           </form>
         </div>
+        </>
+      )}
+      {loading ? (
+          <>
+          <div className="spinner-container">
+            <TailSpin
+              visible={true}
+              
+              color="#4fa94d"
+              ariaLabel="tail-spin-loading"
+              radius="1"
+            />
+          </div>
+          </>
+        ) : (
+        <>
+        </>
       )}
       
     </>

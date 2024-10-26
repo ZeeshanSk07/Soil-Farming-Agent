@@ -54,9 +54,8 @@
     padding: 1vh auto;
     border-radius: 6px;
     cursor: pointer;
-    margin-top: 1rem;
     transition: background-color 0.3s ease-in-out;
-    display: block !important;
+    display: flex !important;
     margin: 1rem auto !important;
   }
   
@@ -64,6 +63,14 @@
   .form-button:hover {
     background-color: #0056b3;
   }
+  .spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh; 
+    z-index: 100000;
+  }
+
   
   @media screen and (max-width:500px) {
     .admin-login-container{

@@ -11,6 +11,7 @@ import { RxCross2 } from "react-icons/rx";
 import { useNavigate } from "react-router-dom";
 import { updAdmin } from "../../apis/user";
 import farmingAgent from "../../assets/farmingagent.png";
+import {TailSpin} from 'react-loader-spinner';
 
 function Navbar() {
   const [open, setOpen] = useState(false);
@@ -30,6 +31,8 @@ function Navbar() {
   const [update, setUpdate] = useState(false);
   const [updusername, setUpdusername] = useState("");
   const [newpassword, setNewpassword] = useState("");
+
+  const [loading,setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -84,6 +87,7 @@ function Navbar() {
 
   const newsoil = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const res = await postSoil(
       name,
       color,
@@ -92,6 +96,7 @@ function Navbar() {
       distributor,
       token
     );
+    setLoading(false);
     console.log(res);
     if (res.status === 201) {
       console.log("Soil added successfully");
@@ -116,7 +121,9 @@ function Navbar() {
   const updateuser = async (e) => {
     e.preventDefault();
     try {
+      setLoading(true);
       const response = await updAdmin(user, updusername, newpassword, token);
+      setLoading(false);
       console.log(response);
       if (response.status === 200) {
         toast.success("Profile updated successfully");
@@ -128,6 +135,7 @@ function Navbar() {
         toast.error("Failed to update profile");
       }
     } catch (e) {
+      setLoading(false);
       console.log(e);
       toast.error("Failed to update profile");
     }
@@ -190,7 +198,25 @@ function Navbar() {
           </button>
         </div>
       </div>
+      {loading ? (
+          <>
+          <div className="spinner-container">
+            <TailSpin
+              visible={true}
+              
+              color="#4fa94d"
+              ariaLabel="tail-spin-loading"
+              radius="1"
+            />
+          </div>
+          </>
+        ) : (
+        <>
+        </>
+      )}
       {update && (
+        <>
+        <div className="modal-backdrop"></div>
         <div className="form-container">
           <div
             style={{
@@ -228,6 +254,7 @@ function Navbar() {
             </div>
           </form>
         </div>
+        </>
       )}
       {open && (
         <>
